@@ -30,7 +30,7 @@ public class BoardIO {
 	 * @param scanner takes in Scanner scanner
 	 * @return true or false
 	 */
-	private boolean readBoard(Board board, Scanner scanner) {
+	private boolean readBoard(Board board, Scanner scanner) throws IllegalArgumentException {
 		// board and scanner must exist
 		if (board == null || scanner == null) {
 			return false;
@@ -63,7 +63,7 @@ public class BoardIO {
 				} else if (side.toLowerCase().equals("black")) {
 					bSide = false;
 				} else {
-					return false;
+					throw new IllegalArgumentException("Side must be white or black.");
 				}
 
 				// sets the chess piece and square to each other
@@ -72,9 +72,7 @@ public class BoardIO {
 				square.setPiece(piece);
 
 			} catch (Exception e) {
-				// do nothing
-
-				// always closes lineScan
+				System.out.println(e);
 			} finally {
 				lineScan.close();
 			}

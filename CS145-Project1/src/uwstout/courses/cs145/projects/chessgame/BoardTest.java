@@ -30,16 +30,16 @@ public class BoardTest {
 				assertEquals(maxFile, board.getMaxFile());
 
 				// Test every square on the board and one square outside of the board
-				for (int rank = 0; rank <= maxRank + 1; rank++) {
-					for (char file = 'a' - 1; file <= maxFile + 1; file++) {
+				for (int rank = board.getMinRank() - 1; rank <= board.getMaxRank() + 1; rank++) {
+					for (char file = (char)(board.getMinFile() - 1); file <= board.getMaxFile() + 1; file++) {
+						Square square = board.getSquare(rank, file);
+
 						// Test out of bound squares
-						if (rank < 1 || rank > maxRank || file < 'a' || file > maxFile) {
-							assertEquals(null, board.getSquare(rank, file));
+						if (rank < board.getMinRank() || rank > board.getMaxRank() || file < board.getMinFile() || file > board.getMaxFile()) {
+							assertEquals(null, square);
 						} 
 						// Test in bound squares
 						else {
-							Square square = board.getSquare(rank, file);
-
 							// Test getRank
 							assertEquals(rank, square.getRank());
 
@@ -120,9 +120,9 @@ public class BoardTest {
 		b1.clearBoard();
 
 		// loop over to see if everything is null
-		for (int rank = 0; rank < 26; rank++) {
-			for (char file = 'a'; file < 'z'; file++) {
-				assertEquals(null, b1.getSquare(rank, file));
+		for (int rank = b1.getMinRank(); rank <= b1.getMaxRank(); rank++) {
+			for (char file = b1.getMinFile(); file < b1.getMaxFile(); file++) {
+				assertEquals(null, b1.getSquare(rank, file).getPiece());
 			}
 		}
 	}

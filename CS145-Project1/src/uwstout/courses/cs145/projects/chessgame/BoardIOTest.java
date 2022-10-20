@@ -56,9 +56,10 @@ public class BoardIOTest {
 				+ "KNIGHT black 5 a\n" + "KNIGHT 6 b\n" + "BISHOP black 6 d\n");
 		BoardIO io = new BoardIO();
 		Board board = new Board(8, 'h');
+
 		// should read in 4 values
 		boolean result = io.loadBoardState(board, input);
-		// tests
+
 		// check if loaded
 		assertTrue(result);
 		// check the number of pieces on the board
@@ -237,7 +238,7 @@ public class BoardIOTest {
 	/**
 	 * Test for a bad string
 	 * 
-	 * Takes in a bad string and returns false
+	 * Takes in a bad string and skips it
 	 */
 	@Test
 	public void testLoadBoardBadString() {
@@ -246,7 +247,10 @@ public class BoardIOTest {
 
 		boolean result = io.loadBoardState(board, "bad-input.txt");
 
-		assertFalse(result);
+		assertTrue(result);
+
+		// check the number of pieces on the board
+		assertEquals(3, countPieces(board));
 	}
 
 	/**
