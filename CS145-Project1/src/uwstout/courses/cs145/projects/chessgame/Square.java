@@ -97,13 +97,8 @@ public class Square {
 	 * Sets the piece
 	 * 
 	 * @param piece takes in ChessPiece piece
-	 * @throws IllegalArgumentException "Chess pieces cannot share a square."
 	 */
 	public void setPiece(ChessPiece piece) {
-		/*
-		 * if (this.piece != null) { throw new
-		 * IllegalArgumentException("Chess pieces cannot share a square."); }
-		 */
 		this.piece = piece;
 	}
 
@@ -115,7 +110,7 @@ public class Square {
 	 * @return String
 	 */
 	public String toString() {
-		return String.format("%c%x", file, rank);
+		return String.format("%c%d", file, rank);
 	}
 
 }

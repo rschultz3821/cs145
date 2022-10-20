@@ -50,7 +50,6 @@ public class BoardIO {
 				int rank = lineScan.nextInt();
 				char file = lineScan.next().charAt(0);
 
-				
 				// find square
 				Square square = board.getSquare(rank, file);
 
@@ -60,16 +59,14 @@ public class BoardIO {
 					bSide = true;
 				} else if (side.toLowerCase().equals("black")) {
 					bSide = false;
-				} 
-				else {
-					throw new IllegalArgumentException("Side needs to be black or white.");
+				} else {
+					return false;
 				}
 
 				// sets the chess piece and square to each other
 				ChessPiece piece = new ChessPiece(bSide);
 				piece.moveTo(square);
 				square.setPiece(piece);
-
 
 			} catch (Exception e) {
 				// do nothing
@@ -130,14 +127,11 @@ public class BoardIO {
 		if (board == null || writer == null) {
 			return false;
 		}
-		try {
-			writer.print(board);
 
-			writer.close();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		writer.print(board);
+
+		writer.close();
+		return true;
 	}
 
 	/**

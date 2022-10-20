@@ -84,6 +84,13 @@ public class ChessPiece {
 		}
 	}
 
+	/**
+	 * toString method
+	 * 
+	 * Creates a toString for ChessPiece
+	 * 
+	 * @return String for location and side
+	 */
 	public String toString() {
 		return String.format("location:%s side:%s", this.mLocation, this.side);
 	}

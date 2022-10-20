@@ -62,7 +62,6 @@ public class ChessPieceTest {
 	 * Test for moving one piece onto an empty square Test for moving one piece onto
 	 * another empty piece Test for moving one piece onto a square that is not empty
 	 * Test for moving off of the square (null)
-	 * 
 	 */
 	@Test
 	public void testMoveTo() {
@@ -94,5 +93,16 @@ public class ChessPieceTest {
 		// Square s3 = new Square(null, null);
 		p3.moveTo(null);
 		assertEquals(null, p3.getSquare());
+	}
+
+	/**
+	 * Test for toString
+	 * 
+	 * Returns the string for location and side
+	 */
+	@Test
+	public void testToString() {
+		ChessPiece p1 = new ChessPiece(true);
+		assertEquals("location:null side:true", p1.toString());
 	}
 }

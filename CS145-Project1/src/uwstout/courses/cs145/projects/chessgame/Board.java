@@ -41,7 +41,6 @@ public class Board {
 		this.maxFile = maxFile;
 		this.board = new Square[maxRank][maxFile - 'a' + 1];
 
-
 		for (int rank = 1; rank <= maxRank; rank++) {
 			for (char file = 'a'; file <= maxFile; file++) {
 				this.board[rank - 1][file - 'a'] = new Square(this, rank, file);
@@ -110,37 +109,10 @@ public class Board {
 		if (file < this.getMinFile() || file > this.getMaxFile()) {
 			return null;
 		}
-		//return this.board[rank][file - 'a' + 1];
+		// return this.board[rank][file - 'a' + 1];
 		return this.board[rank - 1][file - 'a'];
 
 	}
-
-	/**
-	 * Setter for Square
-	 * 
-	 * Checks if rank and file are valid- and sets square. If not, throws
-	 * IllegalException
-	 * 
-	 * @param square takes in Square square
-	 * @throws IllegalArgumentException "The rank must be between %x and %x." and
-	 *                                  "The file must be between lowercase %c and
-	 *                                  %c."
-	 */
-//	public void getSetSquare(Square square) throws IllegalArgumentException {
-//		if (square.getRank() < this.getMinRank() || square.getRank() > this.getMaxRank()) {
-//			throw new IllegalArgumentException(
-//					String.format("The rank must be between %x and %x.", this.getMinRank(), this.getMaxRank()));
-//
-//		}
-//		if (square.getFile() < this.getMinFile() || square.getFile() > this.getMaxFile()) {
-//			throw new IllegalArgumentException(String.format("The file must be between lowercase %c and %c.",
-//					this.getMinFile(), this.getMaxFile()));
-//		}
-//
-//		//this.board[square.getRank()][square.getFile() - 'a' + 1] = square;
-//		this.board[square.getRank()][square.getFile() - 'a' + 1] = square;
-//
-//	}
 
 	/**
 	 * Method to clear the board
@@ -172,12 +144,11 @@ public class Board {
 					String sSide = "";
 					if (piece.isWhite()) {
 						sSide = "white";
-					}
-					else {
+					} else {
 						sSide = "black";
 					}
 
-					str = str + String.format("PIECE %s %x %c \n", sSide, rank, file);
+					str = str + String.format("PIECE %s %d %c\n", sSide, rank, file);
 				}
 			}
 		}

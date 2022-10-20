@@ -1,0 +1,4 @@
+PIECE black 1 d
+PIECE white 2 g
+PIECE black 5 a
+PIECE black 6 d
