@@ -11,15 +11,19 @@ import org.junit.Test;
 
 public class BoardIOTest {
 
-	private int countPieces(Board board) {
+	private int countPieces(Board board) throws ArrayIndexOutOfBoundsException{
 		int count = 0;
 		// check all of the squares
 		for (int r = 1; r <= board.getMaxRank(); r++) {
-			// for (char f = 'a'; f <= board.getMaxFile(); f++) {
 			for (char f = 'a'; f <= board.getMaxFile(); f++) {
+				Square square = board.getSquare(r, f);
+				if (square == null) {
+					throw new ArrayIndexOutOfBoundsException("Square does not exist");
+				}
+
 				// if there is a piece there, count it
-				if (board.getSquare(r, f).getPiece() != null) {
-					count++;
+				if (square.getPiece() != null) {
+					count++;	
 				}
 			}
 		}
@@ -46,11 +50,10 @@ public class BoardIOTest {
 		Board board = new Board(8, 'h');
 		// should read in 4 values
 		boolean result = io.loadBoardState(board, input);
-//		// tests
+		// tests
 		// check if loaded
 		assertTrue(result);
 		// check the number of pieces on the board
-		// System.out.println(countPieces(board));
 		assertEquals(4, countPieces(board));
 		// check each piece
 		checkPiece(board, "BISHOP", false, 1, 'd');
@@ -69,13 +72,8 @@ public class BoardIOTest {
 
 		BoardIO io = new BoardIO();
 		Board board = new Board(8, 'h');
-		// should read in 4 values
-		boolean result = false;
-		//try {
-			result = io.loadBoardState(board, "FileOutput.txt");
-		//} catch (FileNotFoundException e) {
-			//e.printStackTrace();
-		//}
+		
+		boolean result = io.loadBoardState(board, "FileOutput.txt");
 
 		assertTrue(result);
 
@@ -180,7 +178,6 @@ public class BoardIOTest {
 			// type (i.e. BISHOP or KNIGHT)
 			// TODO order may be different depending
 			// on the order the board is searched
-			System.out.println(line);
 			assertEquals("PIECE black 1 d", line);
 			line = in.nextLine().trim();
 			assertEquals("PIECE white 2 g", line);

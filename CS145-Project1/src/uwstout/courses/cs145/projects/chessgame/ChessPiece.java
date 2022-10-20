@@ -83,4 +83,8 @@ public class ChessPiece {
 			location.setPiece(this);
 		}
 	}
+
+	public String toString() {
+		return String.format("location:%s side:%s", this.mLocation, this.side);
+	}
 }

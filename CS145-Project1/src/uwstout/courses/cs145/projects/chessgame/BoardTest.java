@@ -16,7 +16,7 @@ public class BoardTest {
 	/**
 	 * Test for constructor Board
 	 * 
-	 * Tests getMaxRank, getMaxFike, getMinRank, getMinFile
+	 * Tests getMaxRank, getMaxFile, getMinRank, getMinFile
 	 */
 	@Test
 	public void testBoard() {
@@ -100,7 +100,7 @@ public class BoardTest {
 //		Board b1 = new Board(3, 'c');
 //		ChessPiece p1 = new ChessPiece(true);
 //		// call clear board
-//		// loop get suqre.get piece (null)
+//		// loop get square.get piece (null)
 //		Square s1 = b1.getSquare(2, 'b');
 //		p1.moveTo(s1);
 //		assertEquals(p1.toString(), s1.getPiece().toString());
@@ -115,11 +115,8 @@ public class BoardTest {
 		
 		//loop over to see if everything is null
 		for (int rank = 0; rank < 26; rank++) {
-			for (int file = 0; file < 'z'; file++) {
-				assertEquals(null, b1.getSquare(1, 'a'));
-				assertEquals(null, b1.getSquare(2, 'b'));
-				assertEquals(null, b1.getSquare(3, 'c'));
-				assertEquals(null, b1.getSquare(4, 'd'));
+			for (char file = 'a'; file < 'z'; file++) {
+				assertEquals(null, b1.getSquare(rank, file));
 			}
 		}
 	}

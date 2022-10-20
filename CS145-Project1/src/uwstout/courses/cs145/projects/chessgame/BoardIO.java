@@ -49,12 +49,10 @@ public class BoardIO {
 				String side = lineScan.next();
 				int rank = lineScan.nextInt();
 				char file = lineScan.next().charAt(0);
+
+				
 				// find square
 				Square square = board.getSquare(rank, file);
-				//check if 
-//				if (square == null ) {
-//					throw new IllegalArgumentException("Square does not exist.");
-//				}
 
 				// convert side to boolean
 				boolean bSide;
@@ -70,8 +68,8 @@ public class BoardIO {
 				// sets the chess piece and square to each other
 				ChessPiece piece = new ChessPiece(bSide);
 				piece.moveTo(square);
-				//square.setPiece(piece);
-			//	board.getSetSquare(square);
+				square.setPiece(piece);
+
 
 			} catch (Exception e) {
 				// do nothing
@@ -109,10 +107,11 @@ public class BoardIO {
 	 */
 	public boolean loadBoardState(Board board, String fileName) {
 		try {
-			File variableName = new File(fileName);
-			Scanner scanner = new Scanner(variableName);
+			File file = new File(fileName);
+			Scanner scanner = new Scanner(file);
 			return readBoard(board, scanner);
 		} catch (Exception e) {
+			System.out.println(e);
 			return false;
 		}
 	}
@@ -131,9 +130,8 @@ public class BoardIO {
 		if (board == null || writer == null) {
 			return false;
 		}
-		System.out.println(board.toString2());
 		try {
-			writer.print(board.toString2());
+			writer.print(board);
 
 			writer.close();
 			return true;
@@ -170,6 +168,7 @@ public class BoardIO {
 			PrintWriter writer = new PrintWriter(variableName);
 			return saveBoard(board, writer);
 		} catch (Exception e) {
+			System.out.println(e);
 			return false;
 		}
 	}

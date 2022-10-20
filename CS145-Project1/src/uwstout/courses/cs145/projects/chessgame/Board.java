@@ -28,26 +28,23 @@ public class Board {
 	 */
 	public Board(int maxRank, char maxFile) throws IllegalArgumentException {
 		// Checks if the rank parameter is between 1 and 26
-		if (maxRank < 1 || maxRank > 27) {
+		if (maxRank < 1 || maxRank > 26) {
 			throw new IllegalArgumentException("The rank must be between 1 and 26.");
 		}
 		// Checks if the file parameter is between 'a' and 'z'
-		if (maxFile < 97 || maxFile > 122) {
+		if (maxFile < 'a' || maxFile > 'z') {
 			throw new IllegalArgumentException("The file must be between lowercase a and z.");
 		}
 
 		// assigns them to the corresponding class variables
 		this.maxRank = maxRank;
 		this.maxFile = maxFile;
-		//this.board = new Square[maxRank][maxFile - 'a' + 1];
-		this.board = new Square[maxRank - 1][maxFile - 'a'];
+		this.board = new Square[maxRank][maxFile - 'a' + 1];
 
 
-		for (int rank = 0; rank < board.length; rank++) {
-			for (int file = 0; file < board[rank].length; file++) {
-				//this.board[rank][file] = new Square(this, rank, (char) (file + 'a' - 1));
-				this.board[rank][file] = new Square(this, rank, (char) (file + 'a' - 1));
-
+		for (int rank = 1; rank <= maxRank; rank++) {
+			for (char file = 'a'; file <= maxFile; file++) {
+				this.board[rank - 1][file - 'a'] = new Square(this, rank, file);
 			}
 		}
 	}
@@ -151,12 +148,9 @@ public class Board {
 	 * Removes all of the ChessPieces from the Squares on the board
 	 */
 	public void clearBoard() {
-		for (int rank = 0; rank < board.length; rank++) {
-			for (int file = 0; file < board[rank].length; file++) {
-				if(this.board.clone()[rank][file].getPiece() !=null){
-					this.board[rank][file].getPiece().moveTo(null);
-				}
-				//this.board[rank][file].setPiece(null);
+		for (int rank = 1; rank <= this.maxRank; rank++) {
+			for (char file = 'a'; file <= this.maxFile; file++) {
+				this.board[rank - 1][file - 'a'] = null;
 			}
 		}
 	}
@@ -169,11 +163,11 @@ public class Board {
 	 * 
 	 * @return str
 	 */
-	public String toString2() {
+	public String toString() {
 		String str = "";
-		for (int rank = 1; rank < board.length; rank++) {
-			for (int file = 1; file < board[rank].length; file++) {
-				ChessPiece piece = this.board[rank][file].getPiece();
+		for (int rank = 1; rank <= this.maxRank; rank++) {
+			for (char file = 'a'; file <= this.maxFile; file++) {
+				ChessPiece piece = this.getSquare(rank, file).getPiece();
 				if (piece != null) {
 					String sSide = "";
 					if (piece.isWhite()) {
@@ -183,7 +177,7 @@ public class Board {
 						sSide = "black";
 					}
 
-					str = str + String.format("PIECE %s %x %c\n", sSide, rank, ((char) ((file + 'a' - 1))));
+					str = str + String.format("PIECE %s %x %c \n", sSide, rank, file);
 				}
 			}
 		}

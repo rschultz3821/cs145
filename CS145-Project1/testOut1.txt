@@ -1,2 +1,0 @@
-PIECE white 1 f
-PIECE black 5 c
