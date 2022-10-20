@@ -20,8 +20,8 @@ public class Board {
 	 * parameter is between 'a' and 'z'. If valid, assigns them to the corresponding
 	 * class variables. Creates a 2D Square array
 	 * 
-	 * @param maxRank takes in int maxrank
-	 * @param maxFile takes in char maxfile
+	 * @param maxRank takes in int maxRank
+	 * @param maxFile takes in char maxFile
 	 * @throws IllegalArgumentException "The rank must be between 1 and 26." and
 	 *                                  "The file must be between lowercase a and
 	 *                                  z."

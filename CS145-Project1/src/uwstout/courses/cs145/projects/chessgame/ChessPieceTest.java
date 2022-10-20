@@ -69,9 +69,10 @@ public class ChessPieceTest {
 		ChessPiece p1 = new ChessPiece(true);
 		ChessPiece p2 = new ChessPiece(true);
 		ChessPiece p3 = new ChessPiece(false);
-		Square s2 = new Square(4, 'd');
 
 		Square s1 = new Square(3, 'c');
+		Square s2 = new Square(4, 'd');
+
 		p1.moveTo(s1);
 		assertEquals("c3", p1.getSquare().toString());
 		assertEquals(true, s1.getPiece().isWhite());

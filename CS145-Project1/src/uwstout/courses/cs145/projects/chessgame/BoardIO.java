@@ -36,6 +36,9 @@ public class BoardIO {
 			return false;
 		}
 
+		// clear the board
+		board.clearBoard();
+
 		// read new line
 		while (scanner.hasNext()) {
 			String line = scanner.nextLine();

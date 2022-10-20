@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Test for Board class
- * 
  * Tests for Board class
  * 
  * @author SchultzRachel
@@ -14,128 +12,93 @@ import org.junit.Test;
 public class BoardTest {
 
 	/**
-	 * Test for constructor Board
-	 * 
-	 * Tests getMaxRank, getMaxFile, getMinRank, getMinFile
+	 * Tests the Board constructor, getMaxRank, getMaxFile, getMinRank, getMinFile, getSquare
 	 */
 	@Test
-	public void testBoard() {
-		Board b1 = new Board(8, 'h');
-		assertEquals("1", 1, b1.getMinRank());
-		assertEquals("a", 'a', b1.getMinFile());
+	public void testConstructorAndGetSquare() {
+		// Test every possible board size
+		for (int maxRank = 1; maxRank <= 26; maxRank++) {
+			for (char maxFile = 'a'; maxFile <= 'z'; maxFile++) {
+				Board board = new Board(maxRank, maxFile);
 
-		assertEquals("8", 8, b1.getMaxRank());
-		assertEquals("h", 'h', b1.getMaxFile());
+				// Test getMin
+				assertEquals(1, board.getMinRank());
+				assertEquals('a', board.getMinFile());
 
-//		create loop to loop over an 8 x 'h' and see where the problem is in getSquare
-		assertEquals("a1", b1.getSquare(1, 'a').toString());
-		assertEquals("b1", b1.getSquare(1, 'b').toString());
-		assertEquals("c1", b1.getSquare(1, 'c').toString());
-		assertEquals("d1", b1.getSquare(1, 'd').toString());
-		assertEquals("e1", b1.getSquare(1, 'e').toString());
-		assertEquals("f1", b1.getSquare(1, 'f').toString());
-		assertEquals("g1", b1.getSquare(1, 'g').toString());
-		assertEquals("h1", b1.getSquare(1, 'h').toString());
+				// Test getMax
+				assertEquals(maxRank, board.getMaxRank());
+				assertEquals(maxFile, board.getMaxFile());
 
-		assertEquals("a2", b1.getSquare(2, 'a').toString());
-		assertEquals("b2", b1.getSquare(2, 'b').toString());
-		assertEquals("c2", b1.getSquare(2, 'c').toString());
-		assertEquals("d2", b1.getSquare(2, 'd').toString());
-		assertEquals("e2", b1.getSquare(2, 'e').toString());
-		assertEquals("f2", b1.getSquare(2, 'f').toString());
-		assertEquals("g2", b1.getSquare(2, 'g').toString());
-		assertEquals("h2", b1.getSquare(2, 'h').toString());
+				// Test every square on the board and one square outside of the board
+				for (int rank = 0; rank <= maxRank + 1; rank++) {
+					for (char file = 'a' - 1; file <= maxFile + 1; file++) {
+						// Test out of bound squares
+						if (rank < 1 || rank > maxRank || file < 'a' || file > maxFile) {
+							assertEquals(null, board.getSquare(rank, file));
+						} 
+						// Test in bound squares
+						else {
+							Square square = board.getSquare(rank, file);
 
-		assertEquals("a3", b1.getSquare(3, 'a').toString());
-		assertEquals("b3", b1.getSquare(3, 'b').toString());
-		assertEquals("c3", b1.getSquare(3, 'c').toString());
-		assertEquals("d3", b1.getSquare(3, 'd').toString());
-		assertEquals("e3", b1.getSquare(3, 'e').toString());
-		assertEquals("f3", b1.getSquare(3, 'f').toString());
-		assertEquals("g3", b1.getSquare(3, 'g').toString());
-		assertEquals("h3", b1.getSquare(3, 'h').toString());
+							// Test getRank
+							assertEquals(rank, square.getRank());
 
-		assertEquals("a4", b1.getSquare(4, 'a').toString());
-		assertEquals("b4", b1.getSquare(4, 'b').toString());
-		assertEquals("c4", b1.getSquare(4, 'c').toString());
-		assertEquals("d4", b1.getSquare(4, 'd').toString());
-		assertEquals("e4", b1.getSquare(4, 'e').toString());
-		assertEquals("f4", b1.getSquare(4, 'f').toString());
-		assertEquals("g4", b1.getSquare(4, 'g').toString());
-		assertEquals("h4", b1.getSquare(4, 'h').toString());
+							// Test getFile
+							assertEquals(file, square.getFile());
 
-		assertEquals(null, b1.getSquare(9, 'd'));
-		assertEquals(null, b1.getSquare(3, 'l'));
+							// Test getBoard
+							assertEquals(board, square.getBoard());
 
+							// Test getPiece
+							assertEquals(null, square.getPiece());
+
+							// Test Square toString
+							assertEquals(String.format("%c%d", file, rank), square.toString());
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
-	 * Test for invalid rank
-	 * 
-	 * Test file less then 1
+	 * Test for invalid board rank less than 1
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testBoardRank() {
-		Board b1 = new Board(-1, 'c');
-		assertEquals("null", null, b1.getSquare(-1, 'b'));
+	public void testConstructorRankLessThan() {
+		Board b1 = new Board(0, 'a');
+		assertEquals(null, b1.getSquare(0, 'a'));
 	}
 
 	/**
-	 * Test for invalid rank
-	 * 
-	 * Test file great then 26
+	 * Test for invalid board rank greater than 26
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testBoardRank2() {
-		Board b2 = new Board(28, 'c');
-		assertEquals("null", null, b2.getSquare(28, 'b'));
+	public void testConstructorRankGreaterThan() {
+		Board b2 = new Board(27, 'a');
+		assertEquals(null, b2.getSquare(27, 'a'));
 	}
 
 	/**
-	 * Test for invalid file
-	 * 
-	 * Test file less then 97
+	 * Test for invalid board file less than 'a'
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testBoardFile() {
-		Board b3 = new Board(1, '.');
-		assertEquals("null", null, b3.getSquare(1, '.'));
+	public void testConstructorFileLessThan() {
+		Board b3 = new Board(1, (char)('a' - 1));
+		assertEquals(null, b3.getSquare(1, (char)('a' - 1)));
 	}
 
 	/**
-	 * Test for invalid file
-	 * 
-	 * Test file greater then 122
+	 * Test for invalid board file greater then 'z'
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testBoardFile2() {
-		Board b4 = new Board(1, '}');
-		assertEquals("null", null, b4.getSquare(1, '}'));
+	public void testConstructorFileGreaterThan() {
+		Board b4 = new Board(1, (char)('z' + 1));
+		assertEquals(null, b4.getSquare(1, (char)('z' + 1)));
 	}
 
 	/**
-	 * Test for getSquare
-	 * 
-	 * Returns null if not valid Gets the square
-	 */
-	@Test
-	public void testGetSquare() {
-		Board b1 = new Board(4, 'd');
-
-		assertEquals(null, b1.getSquare(6, 'm'));
-		assertEquals(null, b1.getSquare(-1, 'm'));
-		assertEquals(null, b1.getSquare(3, 'm'));
-		assertEquals(null, b1.getSquare(3, 'A'));
-
-		Board b2 = new Board(4, 'd');
-		Square s1 = b1.getSquare(3, 'b');
-		assertEquals(s1.toString(), b2.getSquare(3, 'b').toString());
-	}
-
-	/**
-	 * Test for clearBoard
-	 * 
-	 * Clears the board
+	 * Tests Board clearBoard
 	 */
 	@Test
 	public void testClearBoard() {
@@ -147,7 +110,6 @@ public class BoardTest {
 		ChessPiece c4 = new ChessPiece(true);
 		ChessPiece c5 = new ChessPiece(true);
 		ChessPiece c6 = new ChessPiece(true);
-		ChessPiece c7 = new ChessPiece(true);
 
 		c1.moveTo(b1.getSquare(1, 'a'));
 		c2.moveTo(b1.getSquare(26, 'a'));
@@ -166,9 +128,7 @@ public class BoardTest {
 	}
 
 	/**
-	 * Tests toString
-	 * 
-	 * Tests to String from Board Class
+	 * Tests Board toString
 	 */
 	@Test
 	public void testToString() {

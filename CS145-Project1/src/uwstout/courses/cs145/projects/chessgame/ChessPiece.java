@@ -72,16 +72,17 @@ public class ChessPiece {
 	 */
 	public void moveTo(Square location) {
 		if (this.mLocation != null) {
+			// Remove the current square's reference to this piece
 			this.mLocation.setPiece(null);
 		}
-		this.mLocation = location;
 
 		if (location != null) {
-			if (location.getPiece() != null) {
-				location.getPiece().moveTo(null);
-			}
+			// Set the new square's reference to this piece
 			location.setPiece(this);
 		}
+
+		// Update this piece's location
+		this.mLocation = location;
 	}
 
 	/**
