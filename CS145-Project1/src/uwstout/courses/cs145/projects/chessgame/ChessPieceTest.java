@@ -83,15 +83,12 @@ public class ChessPieceTest {
 		assertEquals(true, s2.getPiece().isWhite());
 
 		// move one piece onto a square that is not empty
-		// ChessPiece p2 = new ChessPiece(true);
-
-		// f1.moveTo(null)
 		p3.moveTo(s1);
-		assertEquals("c3", p3.getSquare().toString());
+		assertEquals(s1, p3.getSquare());
+		assertEquals(null, p1.getSquare());
 		assertEquals(false, s1.getPiece().isWhite());
 
 		// move off of the square
-		// Square s3 = new Square(null, null);
 		p3.moveTo(null);
 		assertEquals(null, p3.getSquare());
 	}

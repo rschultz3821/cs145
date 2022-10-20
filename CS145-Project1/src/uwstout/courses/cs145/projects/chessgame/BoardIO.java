@@ -66,6 +66,15 @@ public class BoardIO {
 					throw new IllegalArgumentException("Side must be white or black.");
 				}
 
+				if (rank < board.getMinRank() || rank > board.getMaxRank()) {
+					throw new IllegalArgumentException("Rank must be between " + board.getMinRank() + " and "
+							+ board.getMaxRank() + ".");
+				}
+				if (file < board.getMinFile() || file > board.getMaxFile()) {
+					throw new IllegalArgumentException("File must be between " + board.getMinFile() + " and "
+							+ board.getMaxFile() + ".");
+				}
+
 				// sets the chess piece and square to each other
 				ChessPiece piece = new ChessPiece(bSide);
 				piece.moveTo(square);

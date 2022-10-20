@@ -77,6 +77,11 @@ public class ChessPiece {
 		}
 
 		if (location != null) {
+			if (location.getPiece() != null) {
+				// Remove the piece that is already on the square
+				location.getPiece().moveTo(null);
+			}
+
 			// Set the new square's reference to this piece
 			location.setPiece(this);
 		}

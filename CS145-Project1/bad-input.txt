@@ -1,4 +1,7 @@
 PIECE blue 1 d 
+PIECE white 0 g 
+PIECE white 2 ;
+PIECE white
 PIECE white 2 g 
 PIECE black 5 a 
 PIECE black 6 d 

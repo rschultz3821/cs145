@@ -122,7 +122,10 @@ public class Board {
 	public void clearBoard() {
 		for (int rank = 1; rank <= this.maxRank; rank++) {
 			for (char file = 'a'; file <= this.maxFile; file++) {
-				this.getSquare(rank, file).setPiece(null);
+				if (this.getSquare(rank, file).getPiece() != null) {
+					this.getSquare(rank, file).getPiece().moveTo(null);
+					this.getSquare(rank, file).setPiece(null);
+				}
 			}
 		}
 	}

@@ -125,6 +125,13 @@ public class BoardTest {
 				assertEquals(null, b1.getSquare(rank, file).getPiece());
 			}
 		}
+
+		assertEquals(null, c1.getSquare());
+		assertEquals(null, c2.getSquare());
+		assertEquals(null, c3.getSquare());
+		assertEquals(null, c4.getSquare());
+		assertEquals(null, c5.getSquare());
+		assertEquals(null, c6.getSquare());
 	}
 
 	/**
