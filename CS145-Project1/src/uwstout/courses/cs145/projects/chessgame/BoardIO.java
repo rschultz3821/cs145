@@ -43,7 +43,7 @@ public class BoardIO {
 		while (scanner.hasNext()) {
 			String line = scanner.nextLine();
 			Scanner lineScan = new Scanner(line);
-			lineScan.useDelimiter(" ");
+			//lineScan.useDelimiter(" ");
 
 			// read type, side, rank, file
 			//// Each line has the format: <type> <side> <rank> <file>
@@ -67,12 +67,12 @@ public class BoardIO {
 				}
 
 				if (rank < board.getMinRank() || rank > board.getMaxRank()) {
-					throw new IllegalArgumentException("Rank must be between " + board.getMinRank() + " and "
-							+ board.getMaxRank() + ".");
+					throw new IllegalArgumentException(
+							"Rank must be between " + board.getMinRank() + " and " + board.getMaxRank() + ".");
 				}
 				if (file < board.getMinFile() || file > board.getMaxFile()) {
-					throw new IllegalArgumentException("File must be between " + board.getMinFile() + " and "
-							+ board.getMaxFile() + ".");
+					throw new IllegalArgumentException(
+							"File must be between " + board.getMinFile() + " and " + board.getMaxFile() + ".");
 				}
 
 				// sets the chess piece and square to each other

@@ -27,25 +27,42 @@ public class Board {
 	 *                                  z."
 	 */
 	public Board(int maxRank, char maxFile) throws IllegalArgumentException {
-		// Checks if the rank parameter is between 1 and 26
-		if (maxRank < 1 || maxRank > 26) {
-			throw new IllegalArgumentException("The rank must be between 1 and 26.");
-		}
-		// Checks if the file parameter is between 'a' and 'z'
-		if (maxFile < 'a' || maxFile > 'z') {
-			throw new IllegalArgumentException("The file must be between lowercase a and z.");
-		}
+//		// Checks if the rank parameter is between 1 and 26
+//		if (maxRank < 1 || maxRank > 26) {
+//			throw new IllegalArgumentException("The rank must be between 1 and 26.");
+//		}
+//		// Checks if the file parameter is between 'a' and 'z'
+//		if (maxFile < 'a' || maxFile > 'z') {
+//			throw new IllegalArgumentException("The file must be between lowercase a and z.");
+//		}
+//
+//		// assigns them to the corresponding class variables
+//		this.maxRank = maxRank;
+//		this.maxFile = maxFile;
+//		this.board = new Square[maxRank][maxFile - 'a' + 1];
+//
+//		for (int rank = 1; rank <= maxRank; rank++) {
+//			for (char file = 'a'; file <= maxFile; file++) {
+//				this.board[rank - 1][file - 'a'] = new Square(this, rank, file);
+//			}
+//		}
+//	}
+		if ((maxRank >= 1 && maxRank <= 26) && (maxFile >= 'a' && maxFile <= 'z')) {
 
-		// assigns them to the corresponding class variables
-		this.maxRank = maxRank;
-		this.maxFile = maxFile;
-		this.board = new Square[maxRank][maxFile - 'a' + 1];
+			this.maxRank = maxRank;
+			this.maxFile = maxFile;
+			board = new Square[maxRank][maxFile];
 
-		for (int rank = 1; rank <= maxRank; rank++) {
-			for (char file = 'a'; file <= maxFile; file++) {
-				this.board[rank - 1][file - 'a'] = new Square(this, rank, file);
+			for (int rank = 0; rank < board.length; rank++) {
+				for (int file = 0; file < board[rank].length; file++) {
+					this.board[rank][file] = new Square(this, (rank + 1), (char) (file + 'a'));
+				}
 			}
+
+		} else {
+			throw new IllegalArgumentException();
 		}
+
 	}
 
 	/**
@@ -120,12 +137,23 @@ public class Board {
 	 * Removes all of the ChessPieces from the Squares on the board
 	 */
 	public void clearBoard() {
-		for (int rank = 1; rank <= this.maxRank; rank++) {
-			for (char file = 'a'; file <= this.maxFile; file++) {
-				if (this.getSquare(rank, file).getPiece() != null) {
-					this.getSquare(rank, file).getPiece().moveTo(null);
-					this.getSquare(rank, file).setPiece(null);
+//		for (int rank = 1; rank <= this.maxRank; rank++) {
+//			for (char file = 'a'; file <= this.maxFile; file++) {
+//				if (this.getSquare(rank, file).getPiece() != null) {
+//					this.getSquare(rank, file).getPiece().moveTo(null);
+//					this.getSquare(rank, file).setPiece(null);
+//				}
+//			}
+//		}
+//	}
+
+		for (int rank = 0; rank < board.length; rank++) {
+			for (int file = 0; file < board[rank].length; file++) {
+				if (board[rank][file].getPiece() != null) {
+					board[rank][file].getPiece().moveTo(null);
+
 				}
+
 			}
 		}
 	}

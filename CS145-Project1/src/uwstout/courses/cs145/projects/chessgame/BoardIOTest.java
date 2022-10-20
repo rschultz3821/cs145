@@ -53,7 +53,8 @@ public class BoardIOTest {
 		// BISHOP and KNIGHT are okay since checkPiece
 		// is not checking the type
 		Scanner input = new Scanner("PIECE blue 1 d \n" + "PIECE white 0 g \n" + "PIECE white 27 g \n"
-				+ "PIECE white 2 `\n" + "PIECE white 2 {\n" + "PIECE white\n" + "PIECE white 2 g\n" + "PIECE black 5 a\n" + "PIECE black 6 d\n");
+				+ "PIECE white 2 `\n" + "PIECE white 2 {\n" + "PIECE white\n" + "PIECE white 2 g\n"
+				+ "PIECE black 5 a\n" + "PIECE black 6 d\n");
 		BoardIO io = new BoardIO();
 		Board board = new Board(8, 'h');
 

@@ -12,7 +12,8 @@ import org.junit.Test;
 public class BoardTest {
 
 	/**
-	 * Tests the Board constructor, getMaxRank, getMaxFile, getMinRank, getMinFile, getSquare
+	 * Tests the Board constructor, getMaxRank, getMaxFile, getMinRank, getMinFile,
+	 * getSquare
 	 */
 	@Test
 	public void testConstructorAndGetSquare() {
@@ -31,13 +32,14 @@ public class BoardTest {
 
 				// Test every square on the board and one square outside of the board
 				for (int rank = board.getMinRank() - 1; rank <= board.getMaxRank() + 1; rank++) {
-					for (char file = (char)(board.getMinFile() - 1); file <= board.getMaxFile() + 1; file++) {
+					for (char file = (char) (board.getMinFile() - 1); file <= board.getMaxFile() + 1; file++) {
 						Square square = board.getSquare(rank, file);
 
 						// Test out of bound squares
-						if (rank < board.getMinRank() || rank > board.getMaxRank() || file < board.getMinFile() || file > board.getMaxFile()) {
+						if (rank < board.getMinRank() || rank > board.getMaxRank() || file < board.getMinFile()
+								|| file > board.getMaxFile()) {
 							assertEquals(null, square);
-						} 
+						}
 						// Test in bound squares
 						else {
 							// Test getRank
@@ -84,8 +86,8 @@ public class BoardTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorFileLessThan() {
-		Board b3 = new Board(1, (char)('a' - 1));
-		assertEquals(null, b3.getSquare(1, (char)('a' - 1)));
+		Board b3 = new Board(1, (char) ('a' - 1));
+		assertEquals(null, b3.getSquare(1, (char) ('a' - 1)));
 	}
 
 	/**
@@ -93,8 +95,8 @@ public class BoardTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorFileGreaterThan() {
-		Board b4 = new Board(1, (char)('z' + 1));
-		assertEquals(null, b4.getSquare(1, (char)('z' + 1)));
+		Board b4 = new Board(1, (char) ('z' + 1));
+		assertEquals(null, b4.getSquare(1, (char) ('z' + 1)));
 	}
 
 	/**
