@@ -52,8 +52,8 @@ public class BoardIOTest {
 		// loads the data for the input
 		// BISHOP and KNIGHT are okay since checkPiece
 		// is not checking the type
-		Scanner input = new Scanner("BISHOP black 1 d\n" + "KNIGHT white 2 g\n" + "BISHOP white 4\n"
-				+ "KNIGHT black 5 a\n" + "KNIGHT 6 b\n" + "BISHOP black 6 d\n");
+		Scanner input = new Scanner("PIECE blue 1 d \n" + "PIECE white 0 g \n" + "PIECE white 27 g \n"
+				+ "PIECE white 2 `\n" + "PIECE white 2 {\n" + "PIECE white\n" + "PIECE white 2 g\n" + "PIECE black 5 a\n" + "PIECE black 6 d\n");
 		BoardIO io = new BoardIO();
 		Board board = new Board(8, 'h');
 
@@ -63,12 +63,11 @@ public class BoardIOTest {
 		// check if loaded
 		assertTrue(result);
 		// check the number of pieces on the board
-		assertEquals(4, countPieces(board));
+		assertEquals(3, countPieces(board));
 		// check each piece
-		checkPiece(board, "BISHOP", false, 1, 'd');
-		checkPiece(board, "KNIGHT", true, 2, 'g');
-		checkPiece(board, "KNIGHT", false, 5, 'a');
-		checkPiece(board, "BISHOP", false, 6, 'd');
+		checkPiece(board, "PIECE", true, 2, 'g');
+		checkPiece(board, "PIECE", false, 5, 'a');
+		checkPiece(board, "PIECE", false, 6, 'd');
 		input.close();
 	}
 

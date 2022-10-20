@@ -66,31 +66,40 @@ public class ChessPieceTest {
 	@Test
 	public void testMoveTo() {
 		// move one piece onto an empty square
+		Board board = new Board(8, 'h');
+
+		Square previousSquare = null;
+
 		ChessPiece p1 = new ChessPiece(true);
-		ChessPiece p2 = new ChessPiece(true);
-		ChessPiece p3 = new ChessPiece(false);
+		ChessPiece p2 = new ChessPiece(false);
 
-		Square s1 = new Square(3, 'c');
-		Square s2 = new Square(4, 'd');
+		// loop over to see if everything is null
+		for (int rank = board.getMinRank(); rank <= board.getMaxRank(); rank++) {
+			for (char file = board.getMinFile(); file < board.getMaxFile(); file++) {
+				// move piece from null to the empty square
+				p1.moveTo(board.getSquare(rank, file));
+				assertEquals(p1, board.getSquare(rank, file).getPiece());
+				assertEquals(board.getSquare(rank, file), p1.getSquare());
+				if (previousSquare != null) {
+					assertEquals(null, previousSquare.getPiece());
+				}
 
-		p1.moveTo(s1);
-		assertEquals("c3", p1.getSquare().toString());
-		assertEquals(true, s1.getPiece().isWhite());
+				// move piece from null to the nonempty square
+				p2.moveTo(board.getSquare(rank, file));
+				assertEquals(p2, board.getSquare(rank, file).getPiece());
+				assertEquals(board.getSquare(rank, file), p2.getSquare());
+				assertEquals(null, p1.getSquare());
 
-		// move one piece onto another empty piece
-		p2.moveTo(s2);
-		assertEquals("d4", p2.getSquare().toString());
-		assertEquals(true, s2.getPiece().isWhite());
+				// move piece off nonempty the square
+				p2.moveTo(null);
+				assertEquals(null, board.getSquare(rank, file).getPiece());
+				assertEquals(null, p2.getSquare());
 
-		// move one piece onto a square that is not empty
-		p3.moveTo(s1);
-		assertEquals(s1, p3.getSquare());
-		assertEquals(null, p1.getSquare());
-		assertEquals(false, s1.getPiece().isWhite());
-
-		// move off of the square
-		p3.moveTo(null);
-		assertEquals(null, p3.getSquare());
+				// move piece from one nonempty square to another an empty square
+				p1.moveTo(board.getSquare(rank, file));
+				previousSquare = board.getSquare(rank, file);
+			}
+		}
 	}
 
 	/**
