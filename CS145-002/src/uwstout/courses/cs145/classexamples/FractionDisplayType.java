@@ -7,22 +7,18 @@ public enum FractionDisplayType {
 	
 	public String toString() {
 		String str = "";
-		switch(this) {
-		
-		case FRACTION: 
+		switch (this) {
+		case FRACTION:
 			str = "Fraction";
 			break;
-			
 		case MIXED_NUMBER:
 			str = "Mixed Number";
 			break;
-			
 		case DECIMAL:
 			str = "Decimal";
 			break;
 		}
-		
+				
 		return str;
 	}
-	
 }

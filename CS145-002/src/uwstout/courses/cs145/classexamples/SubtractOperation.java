@@ -4,6 +4,7 @@ public class SubtractOperation implements Operation {
 
 	@Override
 	public String getName() {
+		
 		return "Subtract";
 	}
 

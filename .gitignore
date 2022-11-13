@@ -1,3 +1,4 @@
 .metadata
 javafx-sdk*
 lib
+*.zip
