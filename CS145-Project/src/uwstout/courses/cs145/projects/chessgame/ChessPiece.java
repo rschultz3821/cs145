@@ -2,34 +2,34 @@ package uwstout.courses.cs145.projects.chessgame;
 
 /**
  * Represents a chess piece on the board.
- * 
+ *
  * The board has a side (black or white) and a location (the square it is on)
- * 
+ *
  * @author SchultzRachel
  * @version 2022.10.18
  */
 public class ChessPiece {
 
 	protected boolean mSide;
-	protected Square mLocation;
+	protected Square mSquare;
 
 	/**
 	 * Constructor for ChessPiece
-	 * 
+	 *
 	 * Stores a boolean side and a location = null
-	 * 
+	 *
 	 * @param side takes in a boolean side
 	 */
 	public ChessPiece(boolean side) {
 		this.mSide = side;
-		this.mLocation = null;
+		this.mSquare = null;
 	}
 
 	/**
 	 * Gets IsWhite
-	 * 
+	 *
 	 * Returns true if the piece is white and false otherwise
-	 * 
+	 *
 	 * @return this.side
 	 */
 	public boolean isWhite() {
@@ -42,9 +42,9 @@ public class ChessPiece {
 
 	/**
 	 * Gets IsBlack
-	 * 
+	 *
 	 * Returns true if the piece is black and false otherwise
-	 * 
+	 *
 	 * @return !this.side
 	 */
 	public boolean isBlack() {
@@ -53,27 +53,27 @@ public class ChessPiece {
 
 	/**
 	 * Gets Square
-	 * 
+	 *
 	 * Gets the square
-	 * 
+	 *
 	 * @return this.location
 	 */
 	public Square getSquare() {
-		return this.mLocation;
+		return this.mSquare;
 	}
 
 	/**
 	 * Method for moveTo
-	 * 
+	 *
 	 * Moves a piece onto a square If a piece is already on the square it replaces
 	 * it and makes that piece null
-	 * 
+	 *
 	 * @param location location of the square
 	 */
 	public void moveTo(Square location) {
-		if (this.mLocation != null) {
+		if (this.mSquare != null) {
 			// Remove the current square's reference to this piece
-			this.mLocation.setPiece(null);
+			this.mSquare.setPiece(null);
 		}
 
 		if (location != null) {
@@ -87,14 +87,14 @@ public class ChessPiece {
 		}
 
 		// Update this piece's location
-		this.mLocation = location;
+		this.mSquare = location;
 	}
 
 	/**
 	 * toString method
-	 * 
+	 *
 	 * Creates a toString for ChessPiece
-	 * 
+	 *
 	 * @return empty String
 	 */
 	public String toString() {
@@ -103,9 +103,9 @@ public class ChessPiece {
 
 	/**
 	 * Method getType
-	 * 
+	 *
 	 * Takes no parameters and returns a PieceType
-	 * 
+	 *
 	 * @return PieceType which null
 	 */
 	public PieceType getType() {
@@ -114,9 +114,9 @@ public class ChessPiece {
 
 	/**
 	 * Method getPossibleMoves
-	 * 
+	 *
 	 * Takes no parameters and returns a MoveList
-	 * 
+	 *
 	 * @return MoveList which is null
 	 */
 	public MoveList getPossibleMoves() {
@@ -125,21 +125,21 @@ public class ChessPiece {
 
 	/**
 	 * Method canMoveTo
-	 * 
+	 *
 	 * Determine if the current piece can move to another square on the board.
-	 * 
+	 *
 	 * @param rank takes in a rank
 	 * @param file takes in a file
 	 * @return returns true or false
 	 */
 	protected boolean canMoveTo(int rank, char file) {
-		if (this.mLocation != null) {
+		if (this.mSquare != null) {
 
-			Board board = mLocation.getBoard();
+			Board board = mSquare.getBoard();
 			if (board != null) {
 
 				Square newSquare = board.getSquare(rank, file);
-				if (this.mLocation.getBoard().getSquare(rank, file) != null) {
+				if (this.mSquare.getBoard().getSquare(rank, file) != null) {
 
 					ChessPiece potentialPiece = newSquare.getPiece();
 					if (potentialPiece == null || potentialPiece.isBlack() != this.isBlack()) {
@@ -153,11 +153,11 @@ public class ChessPiece {
 
 	/**
 	 * Method addMove
-	 * 
+	 *
 	 * Checks if the piece can move to a square and, if so, will add it to the
 	 * MoveList. It will also // return a value indicating if that square has a
 	 * piece already on it.
-	 * 
+	 *
 	 * @param possibleMoves[]
 	 * @param rank
 	 * @param file

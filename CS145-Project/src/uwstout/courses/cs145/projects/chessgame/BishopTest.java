@@ -33,22 +33,41 @@ public class BishopTest {
 
 	@Test
 	public void testGetPossibleMoves() {
-		MoveList m = bishopB2.getPossibleMoves();
-		// This list should have
-		// going left and up: 3d, 4c (5b is a black bishop, so do not include)
-		// going right and up: 3f, 4g, (4g is a white bishop, so include)
-		// going left and down: 1d
-		// going right and down: 1f
-		// check if the right number of values
-		assertEquals(6, m.getNumMoves());
-		// check if the right squares exist
-		assertNotNull(m.findMove(3, 'd'));
-		assertNotNull(m.findMove(4, 'c'));
-		assertNotNull(m.findMove(3, 'f'));
-		assertNotNull(m.findMove(4, 'g'));
-		assertNotNull(m.findMove(1, 'd'));
-		assertNotNull(m.findMove(1, 'f'));
-		// TODO test more
+		Board b = new Board(8, 'h');
+		Bishop b1 = new Bishop(true);
+		b1.moveTo(b.getSquare(4, 'd'));
+
+		MoveList m = b1.getPossibleMoves();
+		assertEquals(13, m.getNumMoves());
+
+		assertNotNull(m.findMove(3, 'c'));
+		assertNotNull(m.findMove(2, 'b'));
+		assertNotNull(m.findMove(1, 'a'));
+
+		assertNotNull(m.findMove(3, 'e'));
+		assertNotNull(m.findMove(2, 'f'));
+		assertNotNull(m.findMove(1, 'g'));
+
+		assertNotNull(m.findMove(5, 'c'));
+		assertNotNull(m.findMove(6, 'b'));
+		assertNotNull(m.findMove(7, 'a'));
+
+		assertNotNull(m.findMove(5, 'e'));
+		assertNotNull(m.findMove(6, 'f'));
+		assertNotNull(m.findMove(7, 'g'));
+		assertNotNull(m.findMove(8, 'h'));
+
+		b1.moveTo(b.getSquare(1, 'a'));
+		m = b1.getPossibleMoves();
+		assertEquals(7, m.getNumMoves());
+
+		assertNotNull(m.findMove(2, 'b'));
+		assertNotNull(m.findMove(3, 'c'));
+		assertNotNull(m.findMove(4, 'd'));
+		assertNotNull(m.findMove(5, 'e'));
+		assertNotNull(m.findMove(6, 'f'));
+		assertNotNull(m.findMove(7, 'g'));
+		assertNotNull(m.findMove(8, 'h'));
 	}
 
 	@Test
@@ -73,7 +92,7 @@ public class BishopTest {
 	@Test
 	public void testGetType() {
 		Bishop b1 = new Bishop(true);
-		assertEquals("Bishop", b1.getType().toString());
+		assertEquals("BISHOP", b1.getType().toString());
 	}
 
 	@Test

@@ -10,7 +10,7 @@ public class MoveListTest {
 	public void testMoveList() {
 		MoveList ml= new MoveList();
 		assertEquals(0, ml.getNumMoves());
-		
+
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class MoveListTest {
 	}
 
 	@Test
-	public void testRest() {
+	public void testReset() {
 		fail("Not yet implemented");
 	}
 

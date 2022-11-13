@@ -2,9 +2,9 @@ package uwstout.courses.cs145.projects.chessgame;
 
 /**
  * Stores a number of Squares
- * 
+ *
  * Stores a number of Squares and allows access to them
- * 
+ *
  * @author SchultzRachel
  * @version 2022.10.18
  */
@@ -19,11 +19,11 @@ public class Board {
 
 	/**
 	 * Constructor for Board
-	 * 
+	 *
 	 * Creates Checks if the rank parameter is between 1 and 26 and that the file
 	 * parameter is between 'a' and 'z'. If valid, assigns them to the corresponding
 	 * class variables. Creates a 2D Square array
-	 * 
+	 *
 	 * @param maxRank takes in int maxRank
 	 * @param maxFile takes in char maxFile
 	 * @throws IllegalArgumentException "The rank must be between 1 and 26." and
@@ -51,9 +51,9 @@ public class Board {
 
 	/**
 	 * Getter for MaxRank
-	 * 
+	 *
 	 * Gets the MaxRank
-	 * 
+	 *
 	 * @return this.maxRank
 	 */
 	public int getMaxRank() {
@@ -62,9 +62,9 @@ public class Board {
 
 	/**
 	 * Getter for MaxFile
-	 * 
+	 *
 	 * Gets the MaxFile
-	 * 
+	 *
 	 * @return this.maxFile
 	 */
 	public char getMaxFile() {
@@ -73,9 +73,9 @@ public class Board {
 
 	/**
 	 * Getter for MinRank
-	 * 
+	 *
 	 * Gets the MinRank
-	 * 
+	 *
 	 * @return 1
 	 */
 	public int getMinRank() {
@@ -84,9 +84,9 @@ public class Board {
 
 	/**
 	 * Getter for MinFile
-	 * 
+	 *
 	 * Gets the MinFile
-	 * 
+	 *
 	 * @return 'a'
 	 */
 	public char getMinFile() {
@@ -95,10 +95,10 @@ public class Board {
 
 	/**
 	 * Getter for Square
-	 * 
+	 *
 	 * Checks if rank and file are valid. If not, returns null. If valid, calculates
 	 * the correct position in the array and returns it.
-	 * 
+	 *
 	 * @param rank takes in int rank
 	 * @param file takes in char file
 	 * @return Square 2D array
@@ -118,7 +118,7 @@ public class Board {
 
 	/**
 	 * Method to clear the board
-	 * 
+	 *
 	 * Removes all of the ChessPieces from the Squares on the board
 	 */
 	public void clearBoard() {
@@ -136,10 +136,10 @@ public class Board {
 
 	/**
 	 * toString for board
-	 * 
+	 *
 	 * Creates a String str = str + String.format("PIECE %s %x %c\n", sSide, rank,
 	 * file)
-	 * 
+	 *
 	 * @return str
 	 */
 	public String toString() {
@@ -148,14 +148,22 @@ public class Board {
 			for (char file = 'a'; file <= this.maxFile; file++) {
 				ChessPiece piece = this.getSquare(rank, file).getPiece();
 				if (piece != null) {
-					String sSide = "";
+					String sideString = "";
 					if (piece.isWhite()) {
-						sSide = "white";
+						sideString = "white";
 					} else {
-						sSide = "black";
+						sideString = "black";
 					}
 
-					str = str + String.format("PIECE %s %d %c\n", sSide, rank, file);
+					PieceType type = piece.getType();
+					String typeString = "";
+					if (type != null) {
+						typeString = type.toString();
+					} else {
+						typeString = "PIECE";
+					}
+
+					str = str + String.format("%s %s %d %c\n", typeString, sideString, rank, file);
 				}
 			}
 		}

@@ -13,45 +13,45 @@ public class Knight extends ChessPiece {
 
 	@Override
 	public String toString() {
-		// <side><type>[@<file><rank>
+		// <side><type>[@<file><rank>]
 		String str = "";
 
-		String sSideType = "";
+		if (this.isWhite()) {
+			str = "WN";
+		}
 
-		if (isWhite()) {
-			sSideType = "WN";
-		} else {
-			sSideType = "BN";
+		if (this.isBlack()) {
+			str = "BN";
 		}
-		if (mLocation != null) {
-			sSideType = sSideType + "@" + mLocation;
+
+		if (this.mSquare != null) {
+			str = String.format("%s@%s", str, this.mSquare);
 		}
-		str = sSideType;
 
 		return str;
 	}
 
 	@Override
 	public MoveList getPossibleMoves() {
-		if (mLocation != null) {
+		if (this.mSquare != null) {
 			MoveList moves = new MoveList();
-			// rank + 2, file + 1
-			Square sqr = new Square(rank, file);
-			if(canMoveTo(sqr.getRank() + 2, (char)(sqr.getFile() + 1)) ) {
-				addMove(moves, rank + 2, (char)(file + 1));
-			}
-			
-			// rank + 1, file + 2
-		
-			
-			// rank - 1, file + 2
-			
-			// rank - 2, file + 1
-			// rank - 2, file - 1
-			// rank - 1, file - 2
-			// rank + 1, file - 2
-			// rank + 2, file - 1
 
+			int[][] offsets = { { 1, 2 }, { 2, 1 }, { 2, -1 }, { 1, -2 },
+					{ -1, -2 }, { -2, -1 }, { -2, 1 }, { -1, 2 } };
+
+			int rank = mSquare.getRank();
+			char file = mSquare.getFile();
+
+			for (int i = 0; i < offsets.length; i++) {
+				int newRank = rank + offsets[i][0];
+				char newFile = (char) (file + offsets[i][1]);
+
+				if (this.canMoveTo(newRank, newFile)) {
+					moves.addMove(new Square(newRank, newFile));
+				}
+			}
+
+			return moves;
 		}
 
 		return null;

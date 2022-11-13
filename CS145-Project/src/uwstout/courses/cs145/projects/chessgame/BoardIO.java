@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 /**
  * This class is able to read from input and write to output, including files.
- * 
+ *
  * This class does not store anything and does not need a constructor. *
- * 
+ *
  * @author SchultzRachel
  * @version 2022.10.18
  */
@@ -20,12 +20,12 @@ public class BoardIO {
 
 	/**
 	 * Creates a boolean readBoard
-	 * 
+	 *
 	 * Checks if the board and scanner exists. Then reads each line in the format:
 	 * <type> <side> <rank> <file> Next it finds the square and converts it to a
 	 * boolean. Then sets the chess piece and square to each other. Lastly, it
 	 * always closes lineScan.
-	 * 
+	 *
 	 * @param board   takes in Board board
 	 * @param scanner takes in Scanner scanner
 	 * @return true or false
@@ -56,14 +56,20 @@ public class BoardIO {
 				// find square
 				Square square = board.getSquare(rank, file);
 
-				// convert side to boolean
-				boolean bSide;
+				boolean sideBool;
 				if (side.toLowerCase().equals("white")) {
-					bSide = true;
+					sideBool = true;
 				} else if (side.toLowerCase().equals("black")) {
-					bSide = false;
+					sideBool = false;
 				} else {
 					throw new IllegalArgumentException("Side must be white or black.");
+				}
+
+				PieceType pieceType = null;
+				if (type.toLowerCase().equals("knight")) {
+					pieceType = PieceType.KNIGHT;
+				} else if (type.toLowerCase().equals("bishop")) {
+					pieceType = PieceType.BISHOP;
 				}
 
 				if (rank < board.getMinRank() || rank > board.getMaxRank()) {
@@ -75,8 +81,17 @@ public class BoardIO {
 							"File must be between " + board.getMinFile() + " and " + board.getMaxFile() + ".");
 				}
 
+				ChessPiece piece;
+
 				// sets the chess piece and square to each other
-				ChessPiece piece = new ChessPiece(bSide);
+				if (pieceType != null) {
+					piece = PieceFactory.createPiece(pieceType, sideBool);
+				}
+				else if (type.toLowerCase().equals("piece")) {
+					piece = new ChessPiece(sideBool);
+				} else {
+					throw new IllegalArgumentException("Type must be knight, bishop, or piece.");
+				}
 				piece.moveTo(square);
 				square.setPiece(piece);
 
@@ -92,9 +107,9 @@ public class BoardIO {
 
 	/**
 	 * Creates a boolean loadBoardState
-	 * 
+	 *
 	 * Loads the board state
-	 * 
+	 *
 	 * @param board   takes in Board board
 	 * @param scanner takes in Scanner scanner
 	 * @return readBoard(board, scanner)
@@ -105,9 +120,9 @@ public class BoardIO {
 
 	/**
 	 * Creates a boolean loadBoardState
-	 * 
+	 *
 	 * Reads data from a file
-	 * 
+	 *
 	 * @param board    takes in Board board
 	 * @param fileName takes in String fileName
 	 * @return true or false
@@ -125,10 +140,10 @@ public class BoardIO {
 
 	/**
 	 * Creates a boolean saveBoard
-	 * 
+	 *
 	 * If either of the parameters is null, it returns false. Otherwise, it writes
 	 * the data and returns true
-	 * 
+	 *
 	 * @param board  takes in Board board
 	 * @param writer takes in PrintWriter writer
 	 * @return true or false
@@ -146,9 +161,9 @@ public class BoardIO {
 
 	/**
 	 * Creates a boolean saveBoardState
-	 * 
+	 *
 	 * Saves the board
-	 * 
+	 *
 	 * @param board  takes in Board board
 	 * @param writer takes in PrintWriter writer
 	 * @return true or false
@@ -159,9 +174,9 @@ public class BoardIO {
 
 	/**
 	 * Creates boolean saveBoardState
-	 * 
+	 *
 	 * Opens and writes to a file. If the file is invalid it returns false.
-	 * 
+	 *
 	 * @param board    takes in Board board
 	 * @param fileName takes in String fileName
 	 * @return true or false
